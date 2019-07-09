@@ -1,7 +1,7 @@
 class ShopsController < ApplicationController
 
   def index
-    @products = Product.all
+    @orders =  Order.where(completed: true, created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)
   end
 
   

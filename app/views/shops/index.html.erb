@@ -8,5 +8,23 @@
 
 <hr>
 
+<h2>Orders Transaction Today</h2>
+
+<table>
+    <tr>
+        <th>Order Number</th>
+        <th> Total </th>
+        <th> Date </th>
+    </tr>
+
+    <% @orders.each do |order| %>
+        <tr>
+            <td><%= order.order_number %></td>
+            <td><%= order.total %></td>
+            <td><%= order.created_at %></td>
+        </tr>
+    <% end %>
+</table>
+
 
 

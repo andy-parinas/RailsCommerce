@@ -3,6 +3,14 @@ class Order < ApplicationRecord
 
     before_save :set_order_identification, :set_order_total
 
+
+
+
+    def order_number
+        self.order_identification.split("-").last.upcase
+    end
+
+
     private
 
     def compute_total
