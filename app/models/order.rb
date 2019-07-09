@@ -1,5 +1,5 @@
 class Order < ApplicationRecord
-    has_many :order_items
+    has_many :order_items, dependent: :destroy
 
     before_save :set_order_identification, :set_order_total
 
