@@ -5,6 +5,11 @@
 
 <%= link_to "Cancel", @order, method: :delete %>
 
+<%= form_for @order do |f| %>
+    <%= f.hidden_field :completed, value: true %>
+    <%= f.submit "Complete Order" %>
+<% end %>
+
 <hr>
 
 <table>

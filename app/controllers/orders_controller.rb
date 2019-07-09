@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
 
-  before_action :set_order, only: [:show, :destroy]
+  before_action :set_order, only: [:show, :destroy, :update]
 
   def index
   end
@@ -22,6 +22,17 @@ class OrdersController < ApplicationController
 
   end
 
+  def update
+
+    if @order.update(order_params)
+        redirect_to root_path, notice: 'Order was successfully completed'
+    else
+        redirect_to new_order_path
+    end
+
+
+  end
+
   def destroy
       # @order.destroy
       # will not be deleting the Order created. But will just delete the session.
@@ -35,6 +46,10 @@ class OrdersController < ApplicationController
 
   def set_order
       @order = Order.find(params[:id])
+  end
+
+  def order_params
+    params.require(:order).permit(:total, :completed)
   end
 
 
