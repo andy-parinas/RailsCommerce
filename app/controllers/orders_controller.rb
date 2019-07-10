@@ -25,6 +25,7 @@ class OrdersController < ApplicationController
   def update
 
     if @order.update(order_params)
+        delete_order_session_identification
         redirect_to root_path, notice: 'Order was successfully completed'
     else
         redirect_to new_order_path
@@ -37,7 +38,7 @@ class OrdersController < ApplicationController
       # @order.destroy
       # will not be deleting the Order created. But will just delete the session.
 
-      session.delete(:order_identification)
+      delete_order_session_identification
       redirect_to root_path , notice: 'Order was cancelled'
   end
 
@@ -51,6 +52,12 @@ class OrdersController < ApplicationController
   def order_params
     params.require(:order).permit(:total, :completed)
   end
+
+  def delete_order_session_identification
+    session.delete(:order_identification)
+  end
+
+
 
 
 end

@@ -1,4 +1,5 @@
 class Order < ApplicationRecord
+    include DateTimeFormat
     has_many :order_items, dependent: :destroy
 
     before_save :set_order_identification, :set_order_total
@@ -8,6 +9,13 @@ class Order < ApplicationRecord
 
     def order_number
         self.order_identification.split("-").last.upcase
+    end
+
+    def created
+        # zone = ActiveSupport::TimeZone.new("Brisbane")
+        # self.created_at.in_time_zone(zone).strftime("%d/%m/%y %I:%M %p")
+        DateTimeFormat.convert_to_au_format(self.created_at, "Brisbane")
+
     end
 
 
