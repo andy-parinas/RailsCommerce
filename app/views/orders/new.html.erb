@@ -1,64 +1,75 @@
-<h1>Orders#new</h1>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Order Number: <small><%= @order.order_number %></small></h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+            <%= link_to "Cancel Order", @order, method: :delete, class: "btn btn-sm btn-outline-danger zbtn-inline" %>
+            <%= form_for @order do |f| %>
+                <%= f.hidden_field :completed, value: true %>
+                <%= f.submit "Complete Order", class: "btn btn-sm btn-outline-primary zbtn-inline" %>
+            <% end %>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+
+</div>
+
+
 <p id="notice"><%= notice %></p>
 
-<p>Session Number <%= session[:order_identification] %></p>
 
-<%= link_to "Cancel", @order, method: :delete %>
-
-<%= form_for @order do |f| %>
-    <%= f.hidden_field :completed, value: true %>
-    <%= f.submit "Complete Order" %>
-<% end %>
-
-<hr>
-
-<table>
-    <tr>
-        <th>Product Name</th>
-        <th>Price</th>
-        <th span=3></th>
-    </tr>
-    <% @products.each do |product| %>
-        <tr>
-            <td><%= product.name %></td>
-            <td><%= product.price %></td>
-            <td>
-                <%= form_for @order_item do |f| %>
-                    <%= f.hidden_field :product_id, value: product.id %>
-                    <%= f.number_field :quantity, value: 1, min: 1 %>
-                    <%= f.number_field :discount, value: 0, min: 0, max: 100 %>
-                    <%= f.submit "Add to Order" %>
+<div class="row">
+    <div class="col-md-4 order-md-2 mb-4">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-muted">Cart Items</span>
+            <span class="badge badge-secondary badge-pill">
+                <%= @order.item_count  %>
+            </span>
+        </h4>
+        <ul class="list-group mb-3">
+            <% if @order.order_items.any? %>
+                <% @order.order_items.each do |item| %>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                            <h6 class="my-0"><%= item.product.name %></h6>
+                            <small class="text-muted">Quantity: <%= item.quantity %></small>
+                        </div>
+                        <span class="text-muted"><%= number_to_currency item.subtotal %></span>
+                    </li>
                 <% end %>
-            </td>
-        </tr>
-    <% end %>
-</table>
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>Total</span>
+                    <strong> <%= number_to_currency @order.total %></strong>
+                </li>
+            <% end %>
+        </ul>
+        <form class="card p-2">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Cash Payment">
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-secondary">Pay</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-md-8 order-md-1">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Enter Product Name or UPC" aria-label="Recipient's username" aria-describedby="button-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+            </div>
+        </div>
+       
+        <%= render partial: "shared/products_order", locals:{products: @products, order_item: @order_item} %>
+
+    </div>
+
+</div>
+
+
 
 
 <hr>
-
-<h3>Order Items</h3>
-
-<% if @order.order_items.any? %>
-    <table>
-        <tr>
-            <th>Item</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Total Tax</th>
-            <th>Discount</th>
-            <th>Subtotal</th>
-        </tr>
-        <% @order.order_items.each do |item| %>
-            <tr>
-                <td><%= item.product.name %></td>
-                <td><%= item.unit_price %></td>
-                <td><%= item.quantity %></td>
-                <td><%= item.total_tax %></td>
-                <td><%= item.discount %></td>
-                <td><%= item.subtotal %></td>
-            </tr>
-        <% end %>
-    </table>
-
-<% end %>

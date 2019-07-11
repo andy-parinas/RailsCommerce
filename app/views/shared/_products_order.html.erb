@@ -1,0 +1,33 @@
+<div class="card bg-light">
+    <div class="card-body">
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                    <th style="width: 50%">Product</th>
+                    <th style="width: 15%">Price</th>
+                    <th style="width: 15%">Quantity</th>
+                    <th style="width: 10%" >Discount(%) </th>
+                    <th style="width: 10%"></th>
+                </tr>
+            </thead>
+            <% products.each do |product| %>
+                <tr>
+                    <td><%= product.name %></td>
+                    <td><%= product.price %></td>
+                        <%= form_for order_item do |f| %>
+                            <%= f.hidden_field :product_id, value: product.id %>
+                            <td>
+                                <%= f.number_field :quantity, value: 1, min: 1, class: "form-control form-control-sm" %>                            
+                            </td>
+                            <td>
+                                <%= f.number_field :discount, value: 0, min: 0, max: 100, class: "form-control form-control-sm" %>
+                            </td>
+                            <td>
+                            <%= f.submit "Add to Order", class: "btn btn-sm btn-outline-secondary" %>
+                            <td>
+                        <% end %>
+                </tr>
+            <% end %>
+        </table>
+    </div>
+</div>
