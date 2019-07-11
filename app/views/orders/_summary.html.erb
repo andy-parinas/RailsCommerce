@@ -1,0 +1,31 @@
+ <h4 class="d-flex justify-content-between align-items-center mb-3">
+    <span class="text-muted">Cart Items</span>
+    <span class="badge badge-secondary badge-pill">
+        <%= order.item_count  %>
+    </span>
+</h4>
+<ul class="list-group mb-3">
+    <% if order.order_items.any? %>
+        <% order.order_items.each do |item| %>
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                <div>
+                    <h6 class="my-0"><%= item.product.name %></h6>
+                    <small class="text-muted">Quantity: <%= item.quantity %></small>
+                </div>
+                <span class="text-muted"><%= number_to_currency item.subtotal %></span>
+            </li>
+        <% end %>
+        <li class="list-group-item d-flex justify-content-between">
+            <span>Total</span>
+            <strong> <%= number_to_currency @order.compute_total %></strong>
+        </li>
+    <% end %>
+</ul>
+<form class="card p-2">
+<div class="input-group">
+    <input type="text" class="form-control" placeholder="Cash Payment">
+    <div class="input-group-append">
+    <button type="submit" class="btn btn-secondary">Pay</button>
+    </div>
+</div>
+</form>

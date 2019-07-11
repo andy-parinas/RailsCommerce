@@ -3,30 +3,39 @@
         <table class="table table-borderless">
             <thead>
                 <tr>
-                    <th style="width: 50%">Product</th>
-                    <th style="width: 15%">Price</th>
-                    <th style="width: 15%">Quantity</th>
-                    <th style="width: 10%" >Discount(%) </th>
-                    <th style="width: 10%"></th>
+                    <th style="width: 35%"><div class="p-0">Product</div></th>
+                    <th style="width: 20%"><div class="p-0">Price</div></th>
+                    <th class="d-flex flex-row justify-content-around">         
+                        <div class="p-0">Quantity</div>
+                        <div class="p-0">Discounts</div>
+                        <div class="p-0">Actions</div>
+                    </th>
                 </tr>
             </thead>
             <% products.each do |product| %>
+                        
+
                 <tr>
                     <td><%= product.name %></td>
-                    <td><%= product.price %></td>
-                        <%= form_for order_item do |f| %>
+                    <td><%= number_to_currency product.price %></td>
+                    <td>
+                        <%= form_for order_item, remote: true do |f| %>
                             <%= f.hidden_field :product_id, value: product.id %>
-                            <td>
-                                <%= f.number_field :quantity, value: 1, min: 1, class: "form-control form-control-sm" %>                            
-                            </td>
-                            <td>
-                                <%= f.number_field :discount, value: 0, min: 0, max: 100, class: "form-control form-control-sm" %>
-                            </td>
-                            <td>
+                            <div class="form-row">
+                            <div class=col-4>
+                            <%= f.number_field :quantity, value: 1, min: 1, class: "form-control form-control-sm" %> 
+                            </div>
+                            <div class=col-4>
+                            <%= f.number_field :discount, value: 0, min: 0, max: 100, class: "form-control form-control-sm" %>  
+                            </div>  
+                            <div class=col-4>
                             <%= f.submit "Add to Order", class: "btn btn-sm btn-outline-secondary" %>
-                            <td>
+                            <div>
+                            </div>
                         <% end %>
+                    </td>
                 </tr>
+
             <% end %>
         </table>
     </div>

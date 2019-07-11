@@ -18,15 +18,9 @@ class Order < ApplicationRecord
 
     end
 
-    def total
-        self.order_items.collect{|order_item| order_item.valid? ? order_item.subtotal : 0}.sum
-    end
-
-    def item_count
-        self.order_items.collect{|order_item| order_item.valid? ? order_item.quantity : 0}.sum
-    end
-
-    private
+    # def total
+    #     self.order_items.collect{|order_item| order_item.valid? ? order_item.subtotal : 0}.sum
+    # end
 
     def compute_total
         self.order_items.collect{|order_item| order_item.valid? ? order_item.subtotal : 0}.sum
@@ -37,12 +31,20 @@ class Order < ApplicationRecord
 
     end
 
+    def item_count
+        self.order_items.collect{|order_item| order_item.valid? ? order_item.quantity : 0}.sum
+    end
+
+    private
+
+  
+
     def set_order_identification
         self.order_identification = SecureRandom.uuid
     end
 
     def set_order_total
-        self[:total] = total
+        self[:total] = compute_total
     end
 
 end
