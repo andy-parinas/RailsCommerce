@@ -11,8 +11,9 @@ class OrderItem < ApplicationRecord
   def set_subtotal
       self.unit_price = product.price
       self.total_tax = self.unit_price * self.quantity * product.tax
-      self.subtotal = (self.unit_price * self.quantity * (1 - self.discount)) + self.total_tax
+      self.subtotal = (self.unit_price * self.quantity * (1 - self.discount.to_f / 100)) + self.total_tax
   end
 
+  # TODO: Add the product name to the Order Items field
 
 end

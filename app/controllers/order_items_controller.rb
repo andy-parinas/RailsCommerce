@@ -12,7 +12,9 @@ class OrderItemsController < ApplicationController
       if @product.valid? && @order.valid?
 
         if @order.order_items.create!(order_item_params)
-          # redirect_to new_order_path, notice: 'Order Item added'
+          
+          @order_total = @order.order_items.collect{|order_item| order_item.valid? ? order_item.subtotal : 0}.sum
+
           format.js
         else
           redirect_to new_order_path
