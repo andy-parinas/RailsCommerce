@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
-  get 'order_items/create'
+  # get 'reports/index'
+  # get 'reports/show'
+  # get 'customers/index'
+  # get 'customers/show'
+  # get 'order_items/create'
   get 'shops/index'
 
 
@@ -9,6 +13,10 @@ Rails.application.routes.draw do
   resources :orders
 
   resources :order_items
+
+  resources :customers
+
+  resources :reports
 
   root 'shops#index'
 

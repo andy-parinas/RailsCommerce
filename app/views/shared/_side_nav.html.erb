@@ -2,36 +2,8 @@
 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
     <div class="sidebar-sticky">
     <ul class="nav flex-column">
-        <li class="nav-item">
-        <a class="nav-link active" href="#">
-            <%= fa_icon "home" %>
-            Dashboard <span class="sr-only">(current)</span>
-        </a>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link" href="#">
-            <%= fa_icon "file" %>
-            Orders
-        </a>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link" href="#">
-            <%= fa_icon "shopping-cart" %>
-            Products
-        </a>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link" href="#">
-            <%= fa_icon "user" %>
-            Customers
-        </a>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link" href="#">    
-            <%= fa_icon "bar-chart" %>
-            Reports
-        </a>
-        </li>
+       <%= nav_helper_with_icon 'li', 'nav-item', 'nav-link' %>
+        
     </ul>
 
     </div>
