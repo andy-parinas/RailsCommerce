@@ -15,7 +15,10 @@ class Order < ApplicationRecord
         # zone = ActiveSupport::TimeZone.new("Brisbane")
         # self.created_at.in_time_zone(zone).strftime("%d/%m/%y %I:%M %p")
         DateTimeFormat.convert_to_au_format(self.created_at, "Brisbane")
+    end
 
+    def status
+        self.completed ? "Completed" : "Cancelled"
     end
 
     # def total

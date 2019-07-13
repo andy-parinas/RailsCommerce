@@ -20,13 +20,8 @@ module ApplicationHelper
 
     def nav_helper_with_icon tag_type, tag_type_style, link_style
 
-        puts params[:controller]
-        puts params[:action]
-        
         nav_links = ""
-
         nav_items.each do |item|
-            puts params[:controller] == item[:controllers]
             nav_links << "<#{tag_type} class='#{tag_type_style}'><a href='#{item[:url]}' class='#{link_style} #{active? params[:controller], item[:controller] }'><i class='zicon fa fa-#{item[:icon]}'></i><span>#{item[:title]}<span></a></#{tag_type}>"
         end
 

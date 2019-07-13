@@ -1,17 +1,26 @@
 class OrdersController < ApplicationController
 
-  before_action :set_order, only: [:show, :destroy, :update]
+  before_action :set_order, only: [:destroy, :update]
 
   def index
+    @orders = Order.all
   end
 
   def show
+    @order = Order.find(params[:id])
   end
 
   def new
 
     if !session[:order_identification].nil?
         @order = Order.find_by order_identification: session[:order_identification]
+        if @order.nil?
+          # If there is a case where the Session Exist but not the Order Created. 
+          # Delete the Session then create again using the created order
+          delete_order_session_identification
+          @order = @order = Order.create!
+          session[:order_identification] = @order.order_identification
+        end
     else
         @order = Order.create!
         session[:order_identification] = @order.order_identification
@@ -34,12 +43,17 @@ class OrdersController < ApplicationController
 
   end
 
-  def destroy
-      # @order.destroy
-      # will not be deleting the Order created. But will just delete the session.
+  def cancel 
+    delete_order_session_identification
+    redirect_to root_path , notice: 'Order was cancelled'
+  end
 
-      delete_order_session_identification
-      redirect_to root_path , notice: 'Order was cancelled'
+  def destroy
+    @order.destroy
+    respond_to do |format|
+      format.html { redirect_to orders_url, notice: 'Order was successfully deleted.' }
+      format.json { head :no_content }
+    end
   end
 
 

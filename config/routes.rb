@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   resources :orders
 
+  delete "/orders/:id", to: "orders#cancel"
+
   resources :order_items
 
   resources :customers
