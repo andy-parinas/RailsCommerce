@@ -1,0 +1,9 @@
+ <tr>
+    <td><%= link_to order.order_number, order %></td>
+    <td><%= order.total %></td>
+    <td><%= order.completed? ? "Completed" : "Cancelled" %></td>
+    <td><%= order.created %></td>
+    <td>
+        <%= link_to 'Delete', order, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger" %>
+    </td>
+</tr>

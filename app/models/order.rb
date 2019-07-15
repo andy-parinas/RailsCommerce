@@ -8,7 +8,7 @@ class Order < ApplicationRecord
 
 
     def order_number
-        self.order_identification.split("-").last.upcase
+        self.order_identification.split("-").first.upcase
     end
 
     def created

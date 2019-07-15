@@ -22,13 +22,13 @@
 <table class="table table-striped">
   <thead class="thead-dark">
     <tr>
-      <th>Upc <%= fa_icon "sort" %> </th>
+      <th>Upc</th>
       <th>  
-        <%= link_to th_helper("Product Name", @dir_params, params[:sort] == "name"), 
+        <%= link_to th_helper("Product Name", @dir_params, @sort_column == "name"), 
           products_path(sort: "name", dir: @dir_params) %>
       </th>
       <th>
-        <%= link_to th_helper("Price", @dir_params, params[:sort] == "price" ), 
+        <%= link_to th_helper("Price", @dir_params,  @sort_column == "price" ), 
         products_path(sort: "price", dir: @dir_params) %>
       </th>
       <th>Tax (%)</th>

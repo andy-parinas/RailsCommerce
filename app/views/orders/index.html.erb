@@ -19,25 +19,24 @@
 <table class="table table-striped">
   <thead class="thead-dark">
     <tr>
-      <th>Order Number</th>
-      <th>Total</th>
-      <th>Status</th>
-      <th>Date</th>
-      <th></th>
+        <th>
+             <%= link_to th_helper("Order Number", @dir_params, @sort_column == "order_identification"),
+            orders_path(sort: "order_identification", dir: @dir_params) %>
+        </th>
+        <th>
+             <%= link_to th_helper("Total", @dir_params, @sort_column == "total"),
+            orders_path(sort: "total", dir: @dir_params) %>
+        </th>
+        <th>Status</th>
+        <th>
+            <%= link_to th_helper("Date", @dir_params, @sort_column == "created_at"),
+                orders_path(sort: "created_at", dir: @dir_params) %>
+        </th>
+        <th></th>
     </tr>
   </thead>
   <tbody>
-        <% @orders.each do |order| %>
-            <tr>
-                <td><%= link_to order.order_number, order %></td>
-                <td><%= order.total %></td>
-                <td><%= order.completed? ? "Completed" : "Cancelled" %></td>
-                <td><%= order.created %></td>
-                <td>
-                    <%= link_to 'Delete', order, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger" %>
-                </td>
-            </tr>
-        <% end %>
+    <%= render @orders %>
   </tbody>
 </table>
 

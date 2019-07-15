@@ -8,12 +8,19 @@ class ProductsController < ApplicationController
     dir = params[:dir]
 
     if params[:sort].nil? && params[:dir].nil?
+      @sort_column = "name"
       @dir_params = "DESC"
       @products = Product.order('name ASC').page(params[:page]).per(10)
 
     else
 
-      params[:dir] == "ASC" ? @dir_params = "DESC" : @dir_params = "ASC"
+      if params[:dir] == "ASC"
+        @sort_column = params[:sort]
+        @dir_params = "DESC" 
+     else
+        @sort_column = params[:sort]
+        @dir_params = "ASC"
+     end
         
       @products = Product.order("#{params[:sort]} #{params[:dir]}").page(params[:page]).per(10)
     

@@ -3,7 +3,26 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:destroy, :update]
 
   def index
-    @orders = Order.page(params[:page]).per(10)
+    # @orders = Order.page(params[:page]).per(10)
+    if params[:sort].nil? && params[:dir].nil?
+
+      @sort_column = "created_at"
+      @dir_params = "DESC"
+      @orders = Order.order('created_at DESC').page(params[:page]).per(10)
+
+    else
+
+      if params[:dir] == "ASC"
+         @sort_column = params[:sort]
+         @dir_params = "DESC" 
+      else
+         @sort_column = params[:sort]
+         @dir_params = "ASC"
+      end
+        
+      @orders = Order.order("#{params[:sort]} #{params[:dir]}").page(params[:page]).per(10)
+    
+    end
   end
 
   def show
