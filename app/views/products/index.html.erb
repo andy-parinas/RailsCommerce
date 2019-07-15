@@ -22,29 +22,30 @@
 <table class="table table-striped">
   <thead class="thead-dark">
     <tr>
-      <th>Upc</th>
-      <th>Name</th>
-      <th>Price</th>
+      <th>Upc <%= fa_icon "sort" %> </th>
+      <th>  
+        <%= link_to th_helper("Product Name", @dir_params, params[:sort] == "name"), 
+          products_path(sort: "name", dir: @dir_params) %>
+      </th>
+      <th>
+        <%= link_to th_helper("Price", @dir_params, params[:sort] == "price" ), 
+        products_path(sort: "price", dir: @dir_params) %>
+      </th>
       <th>Tax (%)</th>
       <th></th>
     </tr>
   </thead>
 
-  <tbody>
-    <% @products.each do |product| %>
-      <tr>
-        <td><%= link_to product.upc, product %></td>
-        <td><%= link_to product.name, product %></td>
-        <td><%= number_to_currency product.price %></td>
-        <td><%= product.tax * 100 %></td>
-        <td>
-          <%= link_to 'Edit', edit_product_path(product), class: "btn btn-sm btn-outline-secondary" %>
-          <%= link_to 'Delete', product, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger" %>
-        </td>
-      </tr>
-    <% end %>
+  <tbody id="products">
+    <%= render @products %>
   </tbody>
 </table>
 
-<%= paginate @products %>
+<div id="paginator">
+     <%= paginate @products %>
 
+</div>
+
+<hr>
+
+<%= params[:page] %>

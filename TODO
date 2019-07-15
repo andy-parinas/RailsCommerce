@@ -1,0 +1,23 @@
+
+
+* Implement Sorting for both Order and Product
+
+* Add Fields to OrderItems
+    ProductName: String - Copy the ProductName from Product
+
+* Add Fields to Order
+    PaymentType: Card Cash [Enum]
+    Payment: decimal
+    Change: decimal
+
+
+
+* Implement Login
+
+* Implement Authorization
+
+* Add customer Entity
+
+* Add Settings Constrollers
+    - Managed User
+

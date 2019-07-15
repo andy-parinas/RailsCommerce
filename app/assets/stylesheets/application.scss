@@ -121,3 +121,11 @@ body {
     font-size: 1.1rem;
     margin-right: 5px;
   }
+
+  th a {
+    color: white;
+
+    &:hover{
+      color: white;
+    }
+  }

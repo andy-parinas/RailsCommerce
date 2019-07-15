@@ -31,4 +31,26 @@ module ApplicationHelper
 
 
 
+    def th_helper name, icon, is_active
+
+        sort_icon = ""
+
+        if icon == "DESC"
+            sort_icon = "sort-down"
+        elsif icon == "ASC"
+            sort_icon = "sort-up"
+        end
+
+        if is_active
+             header = "<div class='d-flex flex-row'><div class='mr-2'>#{name}</div><div class='ml-2'> <i class='zicon fa fa-#{sort_icon}'></i></div></div>"
+        else
+             header = "<div class='d-flex flex-row'><div class='mr-2'>#{name}</div><div class='ml-2'> <i class='zicon fa fa-sort'></i></div></div>"
+        end
+        header.html_safe
+    end
+
+    def current_page_params param
+        # Modify this list to whitelist url params for linking to the current page
+        request.params.slice(param)
+      end
 end

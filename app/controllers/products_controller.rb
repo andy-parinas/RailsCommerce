@@ -4,7 +4,21 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.page(params[:page]).per(10)
+    sort = params[:sort]
+    dir = params[:dir]
+
+    if params[:sort].nil? && params[:dir].nil?
+      @dir_params = "DESC"
+      @products = Product.order('name ASC').page(params[:page]).per(10)
+
+    else
+
+      params[:dir] == "ASC" ? @dir_params = "DESC" : @dir_params = "ASC"
+        
+      @products = Product.order("#{params[:sort]} #{params[:dir]}").page(params[:page]).per(10)
+    
+    end
+
   end
 
   # GET /products/1
